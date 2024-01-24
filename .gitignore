@@ -37,4 +37,4 @@ build/
 
 
 ### whatever ###
-temp.txt
+temp*.txt
