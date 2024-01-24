@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Astah UML ###
+*.asta.lock
+
+
+### whatever ###
+temp.txt
