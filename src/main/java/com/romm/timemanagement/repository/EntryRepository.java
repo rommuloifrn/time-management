@@ -3,9 +3,9 @@ package com.romm.timemanagement.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.romm.timemanagement.entities.Project;
+import com.romm.timemanagement.entities.Entry;
 
 @Repository
-public interface ProjectRepository extends JpaRepository<Project, Long> {
+public interface EntryRepository extends JpaRepository<Entry, Long> {
     
 }
