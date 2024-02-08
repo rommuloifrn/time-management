@@ -12,12 +12,13 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="tb_entry")
 public class Entry {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
+
     @ManyToOne(optional = false)
     private Project project;
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
     private String title;
     private String text;
     private Instant start;

@@ -1,6 +1,6 @@
 package com.romm.timemanagement.entities;
 
-import java.time.LocalDate;
+import java.time.Instant;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,14 +12,12 @@ import jakarta.persistence.Table;
 @Table(name = "tb_project")
 public class Project {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     private String title;
     private String description;
-    //@ManyToOne
-    //private User owner;
-    private LocalDate dateCreated;
+    private Instant dateAdded;
 
     public Long getId() {
         return id;
@@ -45,19 +43,11 @@ public class Project {
         this.description = description;
     }
 
-    public LocalDate getDateCreated() {
-        return dateCreated;
+    public Instant getDateAdded() {
+        return dateAdded;
     }
 
-    public void setDateCreated(LocalDate dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setDateAdded(Instant dateAdded) {
+        this.dateAdded = dateAdded;
     }
-
-    // public User getOwner() {
-    //     return owner;
-    // }
-
-    // public void setOwner(User owner) {
-    //     this.owner = owner;
-    // }
 }

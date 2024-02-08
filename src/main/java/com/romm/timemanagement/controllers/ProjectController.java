@@ -24,28 +24,28 @@ public class ProjectController {
     @Autowired
     private ProjectService service;
 
-    @GetMapping
-    public List<Project> findAll() {
-        return service.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public Project findProjectById(@PathVariable("id") Long id) {
-        return service.findProjectById(id);
-    }
-
-    @PostMapping()
+    @PostMapping() // create
     public Project saveProject(@RequestBody Project project) {
         return service.save(project);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") // update
     public Project editProjectById(@PathVariable("id") Long id, @RequestBody Project project) {
         return service.editProjectById(id, project);
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/{id}") // read
+    public Project findProjectById(@PathVariable("id") Long id) {
+        return service.findProjectById(id);
+    }
+
+    @DeleteMapping("/{id}") // delete
     public void deleteById(@PathVariable("id") Long projectId) {
         service.deleteById(projectId);
+    }
+
+    @GetMapping
+    public List<Project> findAll() {
+        return service.findAll();
     }
 }

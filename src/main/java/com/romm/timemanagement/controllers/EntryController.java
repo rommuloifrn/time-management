@@ -22,30 +22,29 @@ public class EntryController {
     @Autowired
     private EntryService entryService;
 
-    
-    @PostMapping()
+    @PostMapping() // start
     public Entry startEntry(@RequestBody Entry entry) {
         return entryService.startEntry(entry);
     }
 
-    @GetMapping("/end/{id}")
+    @PutMapping("/end/{id}") // end
     public Entry endEntry(@PathVariable("id") Long id) {
         return entryService.endEntry(id);
+    }
+
+    @DeleteMapping("/{id}") // delete
+    public void DeleteEntryById(@PathVariable("id") Long id) {
+        entryService.deleteEntryById(id);
+    }
+
+    @PutMapping("/{id}") // update
+    public Entry editEntry(@PathVariable("id") Long id, @RequestBody Entry entry) {
+        return entryService.editEntry(id, entry);
     }
 
     @GetMapping()
     public List<Entry> findAll() {
         return entryService.findAll();
-    }
-
-    @DeleteMapping("/{id}")
-    public void DeleteEntryById(@PathVariable("id") Long id) {
-        entryService.deleteEntryById(id);
-    }
-
-    @PutMapping("/{id}")
-    public Entry editEntry(@PathVariable("id") Long id, @RequestBody Entry entry) {
-        return entryService.editEntry(id, entry);
     }
 
 }
