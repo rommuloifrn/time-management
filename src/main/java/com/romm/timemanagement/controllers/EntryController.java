@@ -28,7 +28,7 @@ public class EntryController {
         return entryService.startEntry(entry);
     }
 
-    @GetMapping("end-entry/{id}")
+    @GetMapping("/end/{id}")
     public Entry endEntry(@PathVariable("id") Long id) {
         return entryService.endEntry(id);
     }
@@ -38,12 +38,12 @@ public class EntryController {
         return entryService.findAll();
     }
 
-    @DeleteMapping("/entries/{id}")
+    @DeleteMapping("/{id}")
     public void DeleteEntryById(@PathVariable("id") Long id) {
         entryService.deleteEntryById(id);
     }
 
-    @PutMapping("/entries/{id}")
+    @PutMapping("/{id}")
     public Entry editEntry(@PathVariable("id") Long id, @RequestBody Entry entry) {
         return entryService.editEntry(id, entry);
     }

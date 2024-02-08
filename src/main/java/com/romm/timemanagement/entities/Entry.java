@@ -62,4 +62,12 @@ public class Entry {
     public void setStart(Instant start) {
         this.start = start;
     }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 }

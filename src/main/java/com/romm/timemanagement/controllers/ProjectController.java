@@ -26,11 +26,10 @@ public class ProjectController {
 
     @GetMapping
     public List<Project> findAll() {
-        List<Project> result = service.findAll();
-        return result;
+        return service.findAll();
     }
 
-    @GetMapping("/project/{id}")
+    @GetMapping("/{id}")
     public Project findProjectById(@PathVariable("id") Long id) {
         return service.findProjectById(id);
     }
@@ -40,12 +39,12 @@ public class ProjectController {
         return service.save(project);
     }
 
-    @PutMapping("/projects/{id}")
+    @PutMapping("/{id}")
     public Project editProjectById(@PathVariable("id") Long id, @RequestBody Project project) {
         return service.editProjectById(id, project);
     }
 
-    @DeleteMapping("/projects/{id}")
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable("id") Long projectId) {
         service.deleteById(projectId);
     }

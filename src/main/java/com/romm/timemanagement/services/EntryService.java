@@ -16,6 +16,7 @@ public class EntryService {
     private EntryRepository entryRepo;
     
     public Entry startEntry(Entry entry) {
+        entry.setStart(Instant.now());
         return entryRepo.saveAndFlush(entry);
     }
 
