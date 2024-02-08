@@ -1,7 +1,7 @@
 # time-management-api
 ### A case study of a personal time management app.
 
-Estudo de caso de um aplicativo de gerenciamento de tempo pessoal.
+this app lets you can manage the time you work on projects by clocking in and out.
 
 ## Goals
 
