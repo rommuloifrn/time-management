@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.romm.timemanagement.DTO.AuthenticationDTO;
 import com.romm.timemanagement.DTO.RegisterDTO;
 import com.romm.timemanagement.repository.UserRepository;
+import com.romm.timemanagement.services.TokenService;
 import com.romm.timemanagement.entities.User;
 
 import jakarta.validation.Valid;
@@ -27,12 +28,16 @@ public class AuthenticationController {
 
     @Autowired private UserRepository repository;
 
+    @Autowired private TokenService tokenService;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.username(), data.password());
         var auth = authenticationManager.authenticate(usernamePassword); // .authenticate recebe um usernamePassword (token) criado na linha acima
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken( (User) auth.getPrincipal());
+
+        return ResponseEntity.ok(token); // nao estou usando um DTO aqui como a kipper usa
     }
 
     @PostMapping("/register")
