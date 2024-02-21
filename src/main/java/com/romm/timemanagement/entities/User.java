@@ -30,11 +30,17 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(unique=true)
-    private String userName;
+    private String username;
 
     private String password;
 
     private UserRole role;
+
+    public User(String username, String password, UserRole role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -44,7 +50,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     @Override
