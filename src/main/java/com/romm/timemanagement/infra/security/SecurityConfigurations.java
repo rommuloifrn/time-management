@@ -30,10 +30,17 @@ public class SecurityConfigurations {
                 .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
 
-                .requestMatchers(HttpMethod.POST, "/entries").hasRole("USER") 
-                .requestMatchers(HttpMethod.GET, "/projects").permitAll()
+                
 
+                .requestMatchers(HttpMethod.GET, "/projects").permitAll()
                 .requestMatchers(HttpMethod.POST, "/projects").permitAll()
+                .requestMatchers(HttpMethod.GET, "/projects/gethours/{id}").permitAll()
+
+                .requestMatchers(HttpMethod.POST, "/entries").hasRole("USER") //start
+                .requestMatchers(HttpMethod.GET, "/entries").hasRole("USER")
+                .requestMatchers(HttpMethod.GET, "/entries/end/{id}").hasRole("USER")
+
+                .requestMatchers(HttpMethod.GET, "/users/count").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

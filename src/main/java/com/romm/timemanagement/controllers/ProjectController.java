@@ -48,4 +48,9 @@ public class ProjectController {
     public List<Project> findAll() {
         return service.findAll();
     }
+
+    @GetMapping("/gethours/{id}") // get hours
+    public Long getProjectHours(@PathVariable("id") Long id) {
+        return service.getTotalHours(id);
+    }
 }
