@@ -15,6 +15,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,17 +31,19 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique=true)
+    @Column(unique=true) @NotBlank // NotBlank falha se for nulo e ainda se for vazia
     private String username;
 
     private String password;
-
     private UserRole role;
+    @Email @NotBlank
+    private String email;
 
-    public User(String username, String password, UserRole role) {
+    public User(@NotBlank String username, String password, UserRole role, @Email @NotBlank String email) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.email = email;
     }
 
     @Override

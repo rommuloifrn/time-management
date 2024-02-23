@@ -10,8 +10,12 @@ this app lets you can manage the time you work on projects by clocking in and ou
 - [ ] External database (right now using H2)
 - [ ] Integration with Angular frontend
   
-## Util
+## Project
+
+[Main folder (controllers, services, repos & entities)](src\main\java\com\romm\timemanagement) 
 
 [Use case diagram](/docs/ucd.png)
 
-[Class diagram](/docs/cd.png)
+<img src="docs/cd.png" height="400">
+
+<!--[Class diagram](/docs/cd.png)>

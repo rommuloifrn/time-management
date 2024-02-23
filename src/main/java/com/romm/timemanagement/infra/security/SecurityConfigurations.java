@@ -40,8 +40,8 @@ public class SecurityConfigurations {
                 .requestMatchers(HttpMethod.GET, "/entries/end/{id}").hasRole("USER") // end entry
                 .requestMatchers(HttpMethod.GET, "/entries").hasRole("USER")          // get all entries
                 
-
-                .requestMatchers(HttpMethod.GET, "/users/count").permitAll()               // get total user quantity
+                .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")           // get total user quantity
+                .requestMatchers(HttpMethod.GET, "/users/count").hasRole("ADMIN")     // get total user quantity
 
                 .anyRequest().authenticated()
             )
