@@ -53,4 +53,9 @@ public class ProjectController {
     public Long getProjectHours(@PathVariable("id") Long id) {
         return service.getTotalHours(id);
     }
+
+    @GetMapping("/mine") // get current user projects
+    public List<Project> getUserProjects() {
+        return service.getUserProjects();
+    }
 }

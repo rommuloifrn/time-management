@@ -6,7 +6,7 @@ this app lets you can manage the time you work on projects by clocking in and ou
 ## Goals
 
 - [x] Basic features specified on the UCD working without authentication/authorization
-- [ ] Login and authentication working
+- [x] Login and authentication working
 - [ ] External database (right now using H2)
 - [ ] Integration with Angular frontend
   

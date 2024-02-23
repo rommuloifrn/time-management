@@ -6,18 +6,26 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.romm.timemanagement.entities.Entry;
 import com.romm.timemanagement.entities.Project;
+import com.romm.timemanagement.entities.User;
 import com.romm.timemanagement.repository.EntryRepository;
 import com.romm.timemanagement.repository.ProjectRepository;
+import com.romm.timemanagement.repository.UserRepository;
 
 @Service
 public class ProjectService {
 
     @Autowired
     private ProjectRepository repo;
+
+    @Autowired
+    private UserRepository userRepo;
 
     @Autowired
     private EntryRepository entryRepo;
@@ -61,6 +69,14 @@ public class ProjectService {
         }
 
         return totalHours;
+        
+    }
+
+    public List<Project> getUserProjects() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        User user = (User) userRepo.findByUsername(username);
+        return repo.findAllByOwner(user);
         
     }
 }
