@@ -3,11 +3,16 @@ package com.romm.timemanagement.controllers;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.romm.timemanagement.entities.Project;
+import com.romm.timemanagement.services.AuthorizationService;
 import com.romm.timemanagement.services.ProjectService;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,13 +29,21 @@ public class ProjectController {
     @Autowired
     private ProjectService service;
 
+    @Autowired
+    private AuthorizationService authorizationService;
+
     @PostMapping() // create
-    public Project saveProject(@RequestBody Project project) {
-        return service.save(project);
+    public ResponseEntity<?> saveProject(@RequestBody Project project) {
+        
+        if ( !authorizationService.requestingUserMatchesDataUser(project.getOwner().getId()) )
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User submitted is not the one requesting");
+
+        return ResponseEntity.ok(service.save(project));
     }
 
     @PutMapping("/{id}") // update
     public Project editProjectById(@PathVariable("id") Long id, @RequestBody Project project) {
+        
         return service.editProjectById(id, project);
     }
 
