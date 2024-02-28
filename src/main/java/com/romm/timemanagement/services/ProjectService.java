@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -32,8 +29,12 @@ public class ProjectService {
     @Autowired
     private EntryRepository entryRepo;
 
+    @Autowired
+    private AuthorizationService authorizationService;
+
     public Project save(Project project) {
         project.setDateAdded(Instant.now());
+        project.setOwner(authorizationService.getUserFromToken());
 
         return repo.save(project);
     }
@@ -59,12 +60,13 @@ public class ProjectService {
     }
 
     public List<Project> findAll() {
-        return repo.findAll();
+        String username = authorizationService.getTokenUsername();
+        User user = (User) userRepo.findByUsername(username);
+        return repo.findAllByOwner(user);
     }
 
     public Long getTotalHours(Long projectId) {
-        Project project = repo.findById(projectId).get();
-        List<Entry> entries = entryRepo.findAllByProject(project);
+        List<Entry> entries = entryRepo.findAllByProjectId(projectId);
         Long totalHours = (long) 0;
         for (Entry entry : entries) {
             Duration duration = Duration.between(entry.getStart(), entry.getStop());
@@ -75,11 +77,12 @@ public class ProjectService {
         
     }
 
-    public List<Project> getUserProjects() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        User user = (User) userRepo.findByUsername(username);
-        return repo.findAllByOwner(user);
-        
+    public boolean isNotProjectOwner(Long id) {
+        Project project = findProjectById(id);
+
+        Long ownerId = project.getOwner().getId();
+        String ownerUsername = userRepo.findById(ownerId).get().getUsername();
+
+        return !authorizationService.getTokenUsername().equals(ownerUsername);
     }
 }

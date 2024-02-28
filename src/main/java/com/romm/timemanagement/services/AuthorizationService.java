@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.romm.timemanagement.entities.User;
 import com.romm.timemanagement.repository.UserRepository;
 
 @Service
@@ -19,12 +20,13 @@ public class AuthorizationService implements UserDetailsService {
         return repository.findByUsername(username);
     }
 
-    public boolean requestingUserMatchesDataUser(Long dataSentUserId) {
+    public User getUserFromToken() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return (User) repository.findByUsername(username);
+    }
 
-        String requestingUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-        String requestedUsername = repository.findById(dataSentUserId).get().getUsername();
-        
-        return requestingUsername.equalsIgnoreCase(requestedUsername);
-    }   
+    public String getTokenUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
     
 }

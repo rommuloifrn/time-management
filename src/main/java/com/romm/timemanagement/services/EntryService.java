@@ -1,6 +1,4 @@
 package com.romm.timemanagement.services;
-import com.romm.timemanagement.entities.Entry;
-
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
@@ -8,6 +6,7 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.romm.timemanagement.entities.Entry;
 import com.romm.timemanagement.repository.EntryRepository;
 
 @Service
@@ -58,7 +57,8 @@ public class EntryService {
         entryRepo.deleteById(id);
     }
 
-    public List<Entry> findAll() {
-        return entryRepo.findAll();
+    public List<Entry> findAllByProjectId(Long projectId) {
+        return entryRepo.findAllByProjectId(projectId);
     }
+
 }

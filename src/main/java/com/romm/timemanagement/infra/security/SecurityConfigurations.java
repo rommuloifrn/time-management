@@ -31,14 +31,15 @@ public class SecurityConfigurations {
                 .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
 
                 
-                .requestMatchers(HttpMethod.POST, "/projects").permitAll()                 // create project
-                .requestMatchers(HttpMethod.GET, "/projects").hasRole("ADMIN")        // get all projects
-                .requestMatchers(HttpMethod.GET, "/projects/gethours/{id}").permitAll()    // get project total hours from entries
+                .requestMatchers(HttpMethod.POST, "/projects").hasRole("USER")        // create project
+                .requestMatchers(HttpMethod.PUT, "/projects/{id}").hasRole("USER")    // edit project
+                .requestMatchers(HttpMethod.GET, "/projects").hasRole("USER")         // get all projects
+                .requestMatchers(HttpMethod.GET, "/projects/gethours/{id}").hasRole("USER") // get project total hours from entries
                 .requestMatchers(HttpMethod.GET, "/projects/mine").hasRole("USER")    // get the current user projects
 
                 .requestMatchers(HttpMethod.POST, "/entries").hasRole("USER")         // start entry
                 .requestMatchers(HttpMethod.GET, "/entries/end/{id}").hasRole("USER") // end entry
-                .requestMatchers(HttpMethod.GET, "/entries").hasRole("USER")          // get all entries
+                .requestMatchers(HttpMethod.GET, "/entries/{id}").hasRole("USER")     // get all entries
                 
                 .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")           // get total user quantity
                 .requestMatchers(HttpMethod.GET, "/users/count").hasRole("ADMIN")     // get total user quantity
