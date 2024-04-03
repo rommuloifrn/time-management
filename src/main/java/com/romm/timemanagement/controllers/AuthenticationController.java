@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.romm.timemanagement.DTO.AuthenticationDTO;
+import com.romm.timemanagement.DTO.LoginResponseDTO;
 import com.romm.timemanagement.DTO.RegisterDTO;
 import com.romm.timemanagement.repository.UserRepository;
 import com.romm.timemanagement.services.TokenService;
@@ -36,7 +37,7 @@ public class AuthenticationController {
 
         var token = tokenService.generateToken( (User) auth.getPrincipal());
 
-        return ResponseEntity.ok(token); // nao estou usando um DTO aqui como a kipper usa
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
